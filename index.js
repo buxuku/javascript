@@ -1,6 +1,8 @@
 window.onload  = function(){
-	$().Tag('p').css("color","green").html("标题").click(function(){alert("ok");});
-	console.log($().Id('p').innerHTML);
+	$().Tag('p').getEle(1).css("color","green").html("标题").click(function(){alert("ok");});
+	$().getClass("cl","two").css("color","yellow");
+	console.log($().Id('p').css('fontSize'));
+	console.log($().Id('p').html());
 	console.log($().Id('i').elements);
 	console.log($().Id('i').elements);
 	//$().Id('i').css('color','red').css('background','red');

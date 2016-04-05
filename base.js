@@ -33,9 +33,36 @@ function base(){ //js中区分大小写，变量名和函数名不能同名，�
 		return this;
 	};
 }
-
+base.prototype.getClass = function(className,id){
+	var node;
+	if(arguments.length==2){
+		node = document.getElementById(id)
+	}else{
+		node = document
+	}
+	var all = node.getElementsByTagName("*");
+	for(var i = 0;i<all.length;i++){
+		if(all[i].className==className){
+			this.elements.push(all[i]);
+		}
+	}
+	return this;
+}
+base.prototype.getEle = function(num){
+	var elements = this.elements[num];
+	this.elements = [];
+	this.elements[0] = elements;
+	return this;
+}
 base.prototype.css = function(attr,value){
 	for(var i=0;i<this.elements.length;i++){
+		if(arguments.length == 1){
+			if(typeof window.getComputedStyle != 'undifined'){//w3c
+				return window.getComputedStyle(this.elements[i],null)[attr];
+			}else if(typeof this.elements[i].currentStyle !='undifined'){//ie
+				return this.elements[i].currentStyle[attr];
+			}
+		}
 		this.elements[i].style[attr] = value;
 	}
 	
@@ -44,6 +71,9 @@ base.prototype.css = function(attr,value){
 
 base.prototype.html = function (str){
 	for(var i=0;i<this.elements.length;i++){
+		if(arguments.length==0){
+		return this.elements[i].innerHTML;
+		}
 		this.elements[i].innerHTML = str;
 	}
 	return this;
