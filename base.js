@@ -9,11 +9,14 @@
 // 		return document.getElementsByTagName(tag);
 // 	}
 // }
-function $(){
-	return new base();
+function $(_this){
+	return new base(_this);
 }
-function base(){ //js中区分大小写，变量名和函数名不能同名，所以不能用var base = base();
+function base(_this){ //js中区分大小写，变量名和函数名不能同名，所以不能用var base = base();
 	this.elements = [];
+	if(_this != undefined){
+		this.elements[0] = _this;
+	}
 	this.Id = function(id){
 		this.elements.push(document.getElementById(id));
 		return this;
@@ -57,9 +60,9 @@ base.prototype.getEle = function(num){
 base.prototype.css = function(attr,value){
 	for(var i=0;i<this.elements.length;i++){
 		if(arguments.length == 1){
-			if(typeof window.getComputedStyle != 'undifined'){//w3c
+			if(typeof window.getComputedStyle != 'undefined'){//w3c
 				return window.getComputedStyle(this.elements[i],null)[attr];
-			}else if(typeof this.elements[i].currentStyle !='undifined'){//ie
+			}else if(typeof this.elements[i].currentStyle !='undefined'){//ie
 				return this.elements[i].currentStyle[attr];
 			}
 		}
@@ -82,6 +85,62 @@ base.prototype.html = function (str){
 base.prototype.click = function (fn){
 	for(var i=0;i<this.elements.length;i++){
 		this.elements[i].onclick = fn;//xhtml中事件监听函数全部用小写，所以不能写成onClick;
+	}
+	return this;
+}
+
+base.prototype.addClass = function(className){
+	for(var i=0;i<this.elements.length;i++){
+		if(!this.elements[i].className.match(new RegExp('(\\s|^)'+className+'(\\s|$)'))){
+		this.elements[i].className += " "+className;
+		}
+	}
+	return this;
+}
+base.prototype.removeClass = function(className){
+	for(var i=0;i<this.elements.length;i++){
+		if(this.elements[i].className.match(new RegExp('(\\s|^)'+className+'(\\s|$)'))){
+		this.elements[i].className=this.elements[i].className.replace(new RegExp('(\\s|^)'+className+'(\\s|$)'),'');
+		}
+	}
+	return this;
+}
+base.prototype.addRule = function(num,sectionText,cssText,poision){
+	var sheet = document.styleSheets[num];
+	if(typeof sheet.insertRule !='undefined'){//w3c
+		sheet.insertRule(sectionText+"{"+cssText+"}",poision);
+	}else if(typeof sheet.addRule!='undefined'){//<=ie8
+		sheet.addRule(sectionText,cssText,poision);
+	}
+	return this;
+}
+base.prototype.removeRule = function(num,index){
+	var sheet = document.styleSheets[num];
+	if(typeof sheet.deleteRule != 'undefined'){
+		sheet.deleteRule(index);
+	}else if(typeof sheet.removeRule != 'undefined'){
+		sheet.removeRule(index);
+	}
+}
+
+base.prototype.hover = function(over,out){
+	for(var i=0;i<this.elements.length;i++){
+		this.elements[i].onmouseover = over;
+		this.elements[i].onmouseout = out;
+	}
+	return this;
+}
+
+base.prototype.show = function(){
+	for(var i=0;i<this.elements.length;i++){
+		this.elements[i].style.display = 'block';
+	}
+	return this;
+}
+
+base.prototype.hide = function(){
+	for(var i=0;i<this.elements.length;i++){
+		this.elements[i].style.display = 'none';
 	}
 	return this;
 }
