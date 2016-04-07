@@ -144,3 +144,17 @@ base.prototype.hide = function(){
 	}
 	return this;
 }
+
+base.prototype.center = function(width,height){
+	var top = document.documentElement.clientHeight;
+	var left = document.documentElement.clientWidth;
+		for(var i=0;i<this.elements.length;i++){
+		this.elements[i].style.top = (top-height)/2+'px';
+		this.elements[i].style.left = (left-width)/2+'px';
+	}
+	return this;
+}
+base.prototype.resize = function(fn){
+	window.onresize = fn;
+	return this
+}

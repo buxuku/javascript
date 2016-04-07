@@ -10,3 +10,10 @@
 .c{
 	font-weight: bold;
 }
+.login_box{
+	width: 300px;
+	height: 200px;
+	border: 1px solid #666;
+	display: none;
+	position: absolute;
+}

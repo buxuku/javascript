@@ -10,6 +10,16 @@ window.onload  = function(){
 		$(this).css('background', 'green');
 		$().Id('list').hide();
 	});
+	$().getClass('login').click(function(){
+		$().getClass('login_box').css('display',"block");
+	})
+		$().getClass('close').click(function(){
+		$().getClass('login_box').css('display',"none");
+	})
+	$().getClass('login_box').center(300,200);
+	$().getClass('login_box').resize(function(){
+		$().getClass('login_box').center(300,200);
+	});
 	//$().addRule(0,'body','background-color:#ccc',0);
 	$().removeRule(0);
 	$().Id('id').css("color","yellow").addClass("a").addClass('b').addClass('c').addClass('a').removeClass('a');
