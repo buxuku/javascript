@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>一个简单的抽奖应用</title>
+	<style>
+	.title{
+		width: 400px;
+		height: 30px;
+		line-height: 30px;
+		color: red;
+		font-size: 24px;
+		font-weight: bold;
+		text-align: center;
+		margin: 0 auto;
+	}
+	.btns{
+		width: 200px;
+		margin: 0 auto;
+	}
+	.btns span{
+		width: 80px;
+		height: 25px;
+		display: inline-block;
+		line-height: 25px;
+		background-color: #036;
+		margin-right: 10px;
+		border: 1px solid #eee;
+		border-radius: 5px;
+		text-align: center;
+		color: #fff;
+		cursor: pointer;
+	}
+	</style>
+	<script>
+	window.onload = function(){
+		var data = ['iphone 6s','小米手机','三星笔记本电脑','100元优惠券','谢谢参与','泰国七日游','5000元红我'];
+		var title = document.getElementById('title'),
+			star = document.getElementById("star"),
+			stop = document.getElementById('stop'),
+			flag = 0,
+			time = null;
+		star.onclick = function(){
+			lottery();
+		}
+		stop.onclick = function(){
+			stopLot();
+		}
+		document.onkeyup = function(e){
+			e = event || window.event;
+			if (e.keyCode==13 && flag == 0){
+				lottery();
+				flag = 1;
+			}else if(e.keyCode==13 && flag ==1){
+				stopLot();
+				flag = 0;
+			}
+		}
+		function lottery(){
+			clearInterval(time);
+			star.style.backgroundColor = '#eee';
+			var num;
+			time = setInterval(function(){
+				num = Math.floor(Math.random()*data.length);
+				title.innerHTML = data[num];
+			},25)
+		}
+		function stopLot(){
+			clearInterval(time);
+			star.style.backgroundColor = '#036';
+		}
+	}
+	</script>
+</head>
+<body>
+	<div class="title" id="title">开发抽奖啦</div>
+	<div class="btns" id="btns">
+		<span id="star">开始</span>
+		<span id="stop">停止</span>
+	</div>
+</body>
+</html>
