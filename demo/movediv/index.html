@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>可拖动的DIV</title>
+	<style>
+	#move_div{
+		width: 400px;
+		height: 250px;
+		border: 1px solid #eee;
+		position: absolute;
+		left: 300px;
+		top: 200px;
+	}
+	#title{
+		text-align: center;
+		border-bottom: 1px solid #eee;
+		cursor: move;
+	}
+	</style>
+	<script>
+	window.onload = function(){
+		var title = document.getElementById('title'),
+			move_div = document.getElementById('move_div');
+		title.onmousedown = function(e){
+			e = event || window.event;
+			var offWidth = e.clientX-move_div.offsetLeft,//鼠标点击位置与DIV宽度的距离
+				offHeight = e.clientY-move_div.offsetTop,//鼠标点击位置与DIV高度的距离
+				winWidth = document.documentElement.clientWidth-move_div.offsetWidth,//可移动窗口范围的宽度
+				winHight = document.documentElement.clientHeight-move_div.offsetHeight;//可移动窗口范围的高度
+				console.log(document.documentElement.offsetHeight);
+			document.onmousemove = function(event){
+				event = event || window.event;
+				var mLeft = event.clientX-offWidth,//移动后DIV定位left值
+					mTop  = event.clientY-offHeight;//移动后DIV定位top值
+				if(mLeft<0){						//防止移出可视区域之外
+					mLeft = 0;
+				}else if(mLeft>winWidth){
+					mLeft = winWidth;
+				}
+				if(mTop<0){
+					mTop = 0;
+				}else if(mTop>winHight){
+					mTop = winHight;
+				}
+				move_div.style.left = mLeft+'px';
+				move_div.style.top = mTop+'px';
+			}
+			document.onmouseup = function(){//松开鼠标取消移动事件
+				document.onmousemove = null; 
+			}
+		}
+
+	}
+	</script>
+</head>
+<body>
+	<div id="move_div">
+		<h2 id="title">拖动我可以移动</h2>
+		<p>这里面是一段文字区域.</p>
+	</div>
+</body>
+</html>
