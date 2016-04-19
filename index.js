@@ -12,13 +12,18 @@ window.onload  = function(){
 	});
 	$().getClass('login').click(function(){
 		$().getClass('login_box').css('display',"block");
+		$().getClass('screen').lock();
 	})
 		$().getClass('close').click(function(){
 		$().getClass('login_box').css('display',"none");
+		$().getClass('screen').unlock();
 	})
 	$().getClass('login_box').center(300,200);
-	$().getClass('login_box').resize(function(){
+	$().resize(function(){
 		$().getClass('login_box').center(300,200);
+		if($().getClass('login_box').css('display') == 'block'){
+		$().getClass('screen').lock();
+		}
 	});
 	//$().addRule(0,'body','background-color:#ccc',0);
 	$().removeRule(0);

@@ -158,3 +158,18 @@ base.prototype.resize = function(fn){
 	window.onresize = fn;
 	return this
 }
+base.prototype.lock = function(){
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	console.log(height);
+	for(var i=0;i<this.elements.length;i++){
+	this.elements[i].style.width = width+'px';
+	this.elements[i].style.height = height+ 'px';
+	this.elements[i].style.display  = 'block';
+	}
+}
+base.prototype.unlock = function(){
+	for(var i=0;i<this.elements.length;i++){
+	this.elements[i].style.display  = 'none';
+	}
+}

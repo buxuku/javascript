@@ -1,3 +1,10 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	margin: 0;
+}
 #p{
 	font-size: 28px;
 }
@@ -10,10 +17,21 @@
 .c{
 	font-weight: bold;
 }
+.screen{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #333;
+	filter:alpha(opacity=30);
+	opacity: .3;
+	display: none;
+}
 .login_box{
 	width: 300px;
 	height: 200px;
 	border: 1px solid #666;
 	display: none;
 	position: absolute;
+	background: #fff;
+	z-index: 9999;
 }
